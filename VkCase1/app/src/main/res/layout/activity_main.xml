@@ -13,45 +13,59 @@
 
 
     <!-- Upper bar. -->
-    <com.google.android.flexbox.FlexboxLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="4"
         android:layout_marginTop="16dp"
-        app:justifyContent="space_between"
-        app:alignItems="flex_end"
-        >
+        android:layout_weight="4">
 
         <ImageButton
+            android:id="@+id/message_button"
 
-            android:layout_width="@dimen/mini_button"
-            android:layout_height="@dimen/mini_button"
 
-            android:src="@drawable/ic_message"
-            android:scaleType="fitXY"
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            app:layout_constraintDimensionRatio="1:1"
+
             android:background="@color/main_background_up"
             android:contentDescription="@string/nopic_message"
-            />
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_message"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <ImageButton
-            android:layout_width="40dp"
-            android:layout_height="@dimen/mini_button"
-            android:src="@drawable/ic_users"
+            android:id="@+id/users_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            app:layout_constraintDimensionRatio="1.5:1"
             android:background="@color/main_background_up"
             android:contentDescription="@string/nopic_users"
             android:scaleType="fitXY"
-            />
+            android:src="@drawable/ic_users"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/idk_button"
+            app:layout_constraintStart_toStartOf="@+id/message_button"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <ImageButton
-
-            android:layout_width="@dimen/mini_button"
-            android:layout_height="@dimen/mini_button"
-            android:scaleType="fitXY"
+            android:id="@+id/idk_button"
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            app:layout_constraintDimensionRatio="1:1"
             android:background="@color/main_background_up"
-            android:src="@drawable/ic_i_have_no_idea"
             android:contentDescription="@string/nopic_idk"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_i_have_no_idea"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+
             />
 
 
-    </com.google.android.flexbox.FlexboxLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     <!-- First user. -->
@@ -151,13 +165,35 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+
+        android:layout_weight="5"
+
+        >
+
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:src="@drawable/rounded_line"
+            android:contentDescription="@string/who_knows_whats_dat" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
     <!-- Down Bar. -->
     <com.google.android.flexbox.FlexboxLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
 
-        android:layout_weight="15"
-        android:layout_marginTop="16dp"
+        android:layout_weight="10"
+
         app:justifyContent="space_around"
         app:alignItems="flex_end"
 
