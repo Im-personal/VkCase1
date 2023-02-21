@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:width="@dimen/button_size"
+        android:height="@dimen/button_size"
+        android:gravity="center"
+        >
+        <shape
+            android:shape="oval"
+
+            >
+            <solid android:color="@color/call_button" />
+            <corners android:bottomRightRadius="@dimen/half_button_size"
+                android:bottomLeftRadius="@dimen/half_button_size"
+                android:topRightRadius="@dimen/half_button_size"
+                android:topLeftRadius="@dimen/half_button_size"/>
+
+        </shape>
+    </item>
+    <item
+        android:drawable="@drawable/ic_call_end"
+        android:gravity="center"
+        android:width="@dimen/half_button_size"
+        android:height="@dimen/half_button_size"
+
+        >
+    </item>
+
+
+</layer-list>
+

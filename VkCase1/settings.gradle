@@ -1,0 +1,2 @@
+rootProject.name = "VkCase1"
+include ':app'

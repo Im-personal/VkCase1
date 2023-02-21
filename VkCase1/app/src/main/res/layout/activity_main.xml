@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@drawable/bg_gradient"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:padding="16dp"
+    android:weightSum="100"
+    android:orientation="vertical">
+
+
+
+    <!-- Upper bar. -->
+    <com.google.android.flexbox.FlexboxLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:layout_marginTop="16dp"
+        app:justifyContent="space_between"
+        app:alignItems="flex_end"
+        >
+
+        <ImageButton
+
+            android:layout_width="@dimen/mini_button"
+            android:layout_height="@dimen/mini_button"
+
+            android:src="@drawable/ic_message"
+            android:scaleType="fitXY"
+            android:background="@color/main_background_up"
+            android:contentDescription="@string/nopic_message"
+            />
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="@dimen/mini_button"
+            android:src="@drawable/ic_users"
+            android:background="@color/main_background_up"
+            android:contentDescription="@string/nopic_users"
+            android:scaleType="fitXY"
+            />
+        <ImageButton
+
+            android:layout_width="@dimen/mini_button"
+            android:layout_height="@dimen/mini_button"
+            android:scaleType="fitXY"
+            android:background="@color/main_background_up"
+            android:src="@drawable/ic_i_have_no_idea"
+            android:contentDescription="@string/nopic_idk"
+            />
+
+
+    </com.google.android.flexbox.FlexboxLayout>
+
+
+    <!-- First user. -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="40"
+        android:layout_marginTop="16dp"
+
+        android:background="@drawable/pfp_face1"
+
+        >
+
+        <ImageView
+            android:layout_width="@dimen/user_size"
+            android:layout_height="@dimen/user_size"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@drawable/pfp_round"
+            android:scaleType="centerCrop"
+            android:src="@drawable/pfp_face1"
+
+            tools:layout_editor_absoluteX="112dp"
+            tools:layout_editor_absoluteY="52dp"
+            android:contentDescription="@string/user_no_pfp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="33dp"
+            android:gravity="center"
+
+            android:text="@string/name_user1"
+            android:textAlignment="center"
+
+            android:textSize="12sp"
+            app:drawableTint="@color/icon"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:drawableEndCompat="@drawable/micro_incall_off" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Second User. -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="40"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/pfp_face2"
+
+
+
+        >
+
+
+        <ImageView
+            android:layout_width="@dimen/user_size"
+            android:layout_height="@dimen/user_size"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@drawable/pfp_round"
+            android:scaleType="centerCrop"
+            android:src="@drawable/pfp_face2"
+
+            tools:layout_editor_absoluteX="112dp"
+            tools:layout_editor_absoluteY="52dp"
+            android:contentDescription="@string/user_no_pfp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="33dp"
+            android:gravity="center"
+            android:textSize="12sp"
+
+            android:textAlignment="center"
+            android:text="@string/name_user2"
+
+            app:drawableTint="@color/icon"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+
+            android:singleLine="true"
+
+
+            app:drawableEndCompat="@drawable/micro_incall_off" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Down Bar. -->
+    <com.google.android.flexbox.FlexboxLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+
+        android:layout_weight="15"
+        android:layout_marginTop="16dp"
+        app:justifyContent="space_around"
+        app:alignItems="flex_end"
+
+
+        >
+
+        <ImageView
+            android:layout_width="@dimen/button_size"
+            android:layout_height="@dimen/button_size"
+
+            android:src="@drawable/button_camera_off"
+            android:contentDescription="@string/cam_button"
+            />
+
+        <ImageView
+            android:layout_width="@dimen/button_size"
+            android:layout_height="@dimen/button_size"
+
+            android:src="@drawable/button_micro_off"
+
+            android:contentDescription="@string/micro_button"
+
+
+            />
+
+        <ImageView
+            android:layout_width="@dimen/button_size"
+            android:layout_height="@dimen/button_size"
+
+            android:src="@drawable/button_hii_oridk"
+            android:contentDescription="@string/hii_or_idk_thing"
+
+
+
+            />
+
+        <ImageView
+            android:layout_width="@dimen/button_size"
+            android:layout_height="@dimen/button_size"
+
+            android:src="@drawable/button_call_end"
+            android:contentDescription="@string/endcall"
+
+            />
+
+
+
+    </com.google.android.flexbox.FlexboxLayout>
+
+
+
+
+</LinearLayout>

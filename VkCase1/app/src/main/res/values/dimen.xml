@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="button_size">50dp</dimen>
+    <dimen name="half_button_size">25dp</dimen>
+    <dimen name="user_size">80dp</dimen>
+    <dimen name="half_user_size">30dp</dimen>
+
+    <dimen name="main_margin">16dp</dimen>
+
+
+    <dimen name="mini_button">24dp</dimen>
+
+    <dimen name="incall_micro">20dp</dimen>>
+</resources>

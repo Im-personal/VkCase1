@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="main_background_up">#FF09090A</color>
+    <color name="main_background_down">#FF19191A</color>
+    <color name="name_text">#FFFFFFFF</color>
+    <color name="icon">#FFFFFFFF</color>
+    <color name="status_bar">#FF050505</color>
+    <color name="nav_bar">#FF0A0A0A</color>
+
+    <color name="primary">#FF0A0A0A</color>
+    <color name="prim_variant">#FF19191A</color>
+
+    <color name="secondary">#FFFFFFFF</color>
+    <color name="sec_variant">#FFBCBFC3</color>
+
+    <color name="call_button">#E64646</color>
+
+    <color name="butt_on">#363738</color>
+    <color name="butt_off">#FFF</color>
+    <color name="icon_on">#FFF</color>
+    <color name="icon_off">#363738</color>
+
+</resources>
