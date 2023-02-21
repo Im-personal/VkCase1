@@ -12,4 +12,5 @@
     <string name="micro_button">microphone button</string>
     <string name="cam_button">camera button</string>
     <string name="who_knows_whats_dat">also idk what is that</string>
+    <string name="bg_pfp">background pfp</string>
 </resources>
