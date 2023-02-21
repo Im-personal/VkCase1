@@ -106,14 +106,15 @@
 
             >
 
-            <eightbitlab.com.blurview.BlurView
-                android:id="@+id/blurView1"
+            <androidx.constraintlayout.widget.ConstraintLayout
+
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
 
 
                 >
             <ImageView
+                android:id="@+id/blurView1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/pfp_face1"
@@ -121,7 +122,7 @@
 
                 android:contentDescription="@string/bg_pfp" />
 
-            </eightbitlab.com.blurview.BlurView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
             <androidx.cardview.widget.CardView
@@ -211,8 +212,8 @@
 
             >
 
-            <eightbitlab.com.blurview.BlurView
-                android:id="@+id/blurView2"
+            <androidx.constraintlayout.widget.ConstraintLayout
+
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
 
@@ -221,6 +222,7 @@
 
 
             <ImageView
+                android:id="@+id/blurView2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/pfp_face2"
@@ -228,7 +230,7 @@
 
                 android:contentDescription="@string/bg_pfp" />
 
-            </eightbitlab.com.blurview.BlurView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="@dimen/user_size"

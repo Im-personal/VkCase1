@@ -9,7 +9,10 @@ import androidx.transition.TransitionManager;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -18,9 +21,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import eightbitlab.com.blurview.BlurView;
-import eightbitlab.com.blurview.RenderEffectBlur;
-import eightbitlab.com.blurview.RenderScriptBlur;
+import jp.wasabeef.blurry.Blurry;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -55,8 +56,6 @@ public class MainActivity extends AppCompatActivity {
     long lastPress = 0;
 
 
-    BlurView blurView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,23 +63,27 @@ public class MainActivity extends AppCompatActivity {
 
         loadData();
         setOnTouch();
-        blurImages();
+
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        blurImages();
+    }
 
     private void blurImages()
     {
+        ImageView us1 = findViewById(R.id.blurView1);
+        Bitmap bitmap = ((BitmapDrawable)us1.getDrawable()).getBitmap();
+        Blurry.with(this).radius(25).sampling(2).from(bitmap).into(us1);
 
-        blurView=findViewById(R.id.blurView1);
-        blur(20);
-        blurView=findViewById(R.id.blurView2);
-        blur(20);
+        ImageView us2 = findViewById(R.id.blurView2);
+        bitmap = ((BitmapDrawable)us2.getDrawable()).getBitmap();
+        Blurry.with(this).radius(25).sampling(2).from(bitmap).into(us2);
     }
 
-    private void blur(float radius){
-
-    }
 
     private void loadData()
     {
@@ -246,4 +249,7 @@ public class MainActivity extends AppCompatActivity {
         pfp_user2 = findViewById(R.id.pfp2);
 
     }
+
+
+
 }
