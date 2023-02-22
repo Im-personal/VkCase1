@@ -128,26 +128,23 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="@dimen/user_size"
                 android:layout_height="@dimen/user_size"
-                app:cardCornerRadius="@dimen/user_size"
-
+                app:cardCornerRadius="@dimen/half_user_size"
 
                 android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-
                 app:layout_constraintTop_toTopOf="parent"
                 >
 
-
-
-                <ImageView
+               <ImageView
                     android:id="@+id/pfp1"
                     android:layout_width="@dimen/user_size"
                     android:layout_height="@dimen/user_size"
                     android:background="@drawable/pfp_round"
                     android:contentDescription="@string/user_no_pfp"
                     android:src="@drawable/pfp_face1"
+                    android:outlineProvider="background"
                     />
 
             </androidx.cardview.widget.CardView>
@@ -235,7 +232,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="@dimen/user_size"
                 android:layout_height="@dimen/user_size"
-                app:cardCornerRadius="@dimen/user_size"
+                app:cardCornerRadius="@dimen/half_user_size"
 
 
                 android:scaleType="centerCrop"
