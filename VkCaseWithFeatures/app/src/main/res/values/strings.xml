@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">VkCase1</string>
+
+    <string name="nopic_message">Message</string>
+    <string name="nopic_idk">I literally dont know what is that. Tabs maybe or smth</string>
+    <string name="nopic_users">Users</string>
+    <string name="user_no_pfp">UserPFP</string>
+    <string name="name_user2">Lumka Chilumka Mashka Promokashka Shotka Kashalotka Bulotchka Progulotchka</string>
+    <string name="name_user1">You</string>
+    <string name="endcall">EndCall</string>
+    <string name="hii_or_idk_thing">thats_button_of_the_hand_that_waves_ig_it_supposed_to_do_hiii_or_smth</string>
+    <string name="micro_button">microphone button</string>
+    <string name="cam_button">camera button</string>
+    <string name="who_knows_whats_dat">also idk what is that</string>
+    <string name="bg_pfp">background pfp</string>
+</resources>

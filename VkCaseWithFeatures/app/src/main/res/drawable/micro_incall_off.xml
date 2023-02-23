@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:drawable="@drawable/ic_micro_off"
+        android:gravity="center"
+        android:width="@dimen/incall_micro"
+        android:height="@dimen/incall_micro"
+        >
+    </item>
+
+
+</layer-list>
+

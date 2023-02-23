@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+
+        >
+        <shape
+            android:shape="rectangle">
+            <solid android:color="@color/butt_off" />
+            <corners android:bottomRightRadius="@dimen/half_button_size"
+                android:bottomLeftRadius="@dimen/half_button_size"
+                android:topRightRadius="@dimen/half_button_size"
+                android:topLeftRadius="@dimen/half_button_size"/>
+        </shape>
+    </item>
+
+</layer-list>
+

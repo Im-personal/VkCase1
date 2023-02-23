@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient"
+    android:orientation="vertical"
+    android:padding="@dimen/main_margin"
+    android:weightSum="100"
+    tools:context=".MainActivity">
+
+    <!-- Upper bar. -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/main_margin"
+        android:layout_weight="4">
+
+        <!-- Message button. -->
+        <ImageButton
+            android:id="@+id/message_button"
+
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@color/main_background_up"
+
+            android:contentDescription="@string/nopic_message"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_message"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Users Button -->
+        <ImageButton
+            android:id="@+id/users_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@color/main_background_up"
+            android:contentDescription="@string/nopic_users"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_users"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1.5:1"
+            app:layout_constraintEnd_toEndOf="@+id/idk_button"
+            app:layout_constraintStart_toStartOf="@+id/message_button"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- I have no idea what this button is -->
+        <ImageButton
+            android:id="@+id/idk_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@color/main_background_up"
+            android:contentDescription="@string/nopic_idk"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_i_have_no_idea"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+
+            />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <!-- Layout with user's pfps -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/usersplace"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/main_margin"
+        android:layout_weight="80">
+
+
+        <!-- First user. -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/user1_place"
+
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/user_height"
+            android:layout_marginBottom="@dimen/main_margin"
+            android:layout_weight="40"
+
+            android:background="@drawable/pfp_face1"
+
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/user2_place"
+            app:layout_constraintTop_toTopOf="parent"
+
+            tools:layout_editor_absoluteX="0dp"
+
+            app:cardCornerRadius="@dimen/pfp_background_corner_rad"
+
+            >
+
+            <!-- User's background. -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            >
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+
+            <ImageView
+                android:id="@+id/blurView1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/pfp_face1"
+                android:scaleType="fitXY"
+
+                android:contentDescription="@string/bg_pfp" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- User's pfp -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="@dimen/user_size"
+                android:layout_height="@dimen/user_size"
+                app:cardCornerRadius="@dimen/half_user_size"
+
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                >
+
+               <ImageView
+                    android:id="@+id/pfp1"
+                    android:layout_width="@dimen/user_size"
+                    android:layout_height="@dimen/user_size"
+                    android:background="@drawable/pfp_round"
+                    android:contentDescription="@string/user_no_pfp"
+                    android:src="@drawable/pfp_face1"
+                    android:outlineProvider="background"
+                    />
+
+            </androidx.cardview.widget.CardView>
+
+
+            <TextView
+                android:id="@+id/user1_name"
+                android:layout_width="wrap_content"
+                android:layout_height="33dp"
+                android:gravity="center"
+
+                android:text="@string/name_user1"
+                android:textAlignment="center"
+
+                android:textSize="12sp"
+                app:drawableEndCompat="@drawable/micro_incall_off"
+
+                app:drawableTint="@color/icon"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/user2_place"
+
+
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/user_height"
+            android:layout_weight="40"
+            android:orientation="horizontal"
+
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/user1_place"
+            tools:layout_editor_absoluteX="0dp"
+
+            app:cardCornerRadius="@dimen/pfp_background_corner_rad"
+            >
+
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+
+
+
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/user_height"
+            android:layout_weight="40"
+            android:orientation="horizontal"
+
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/user1_place"
+            tools:layout_editor_absoluteX="0dp"
+
+
+
+            >
+            <!-- Second User. -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+
+                >
+
+                <!-- User's background. -->
+            <ImageView
+                android:id="@+id/blurView2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/pfp_face2"
+                android:scaleType="fitXY"
+
+                android:contentDescription="@string/bg_pfp" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="@dimen/user_size"
+                android:layout_height="@dimen/user_size"
+                app:cardCornerRadius="@dimen/half_user_size"
+
+
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+
+                app:layout_constraintTop_toTopOf="parent"
+                >
+                <!-- User's pfp -->
+                <ImageView
+                android:id="@+id/pfp2"
+                android:layout_width="@dimen/user_size"
+                android:layout_height="@dimen/user_size"
+                android:background="@drawable/pfp_round"
+                android:contentDescription="@string/user_no_pfp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/pfp_face2"
+                />
+            </androidx.cardview.widget.CardView>
+            <TextView
+                android:id="@+id/user2_name"
+                android:layout_width="wrap_content"
+                android:layout_height="33dp"
+                android:gravity="center"
+                android:singleLine="true"
+
+                android:text="@string/name_user2"
+                android:textAlignment="center"
+
+                android:textSize="12sp"
+
+                app:drawableEndCompat="@drawable/micro_incall_off"
+                app:drawableTint="@color/icon"
+                app:layout_constraintBottom_toBottomOf="parent"
+
+                app:layout_constraintLeft_toLeftOf="parent"
+
+
+                app:layout_constraintRight_toRightOf="parent"
+
+
+                />
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Place for rounded line which also makes space between -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/main_margin"
+
+        android:layout_weight="5"
+
+        >
+
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/who_knows_whats_dat"
+            android:src="@drawable/rounded_line"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Down Bar. -->
+    <com.google.android.flexbox.FlexboxLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+
+        android:layout_weight="10"
+
+        app:alignItems="flex_end"
+        app:justifyContent="space_around"
+
+
+        >
+        <!-- Camera Button -->
+        <ImageView
+            android:id="@+id/button_camera"
+
+            android:layout_width="@dimen/button_size"
+            android:layout_height="@dimen/button_size"
+
+            android:contentDescription="@string/cam_button"
+            android:src="@drawable/button_camera_off" />
+
+        <!-- Microphone button -->
+
+        <ImageView
+            android:id="@+id/button_micro"
+            android:layout_width="@dimen/button_size"
+            android:layout_height="@dimen/button_size"
+
+            android:contentDescription="@string/micro_button"
+
+            android:src="@drawable/button_micro_off"
+
+
+            />
+
+        <!-- Hello button. -->
+        <ImageView
+            android:id="@+id/button_hiordk"
+            android:layout_width="@dimen/button_size"
+            android:layout_height="@dimen/button_size"
+
+            android:contentDescription="@string/hii_or_idk_thing"
+            android:src="@drawable/button_hii_oridk"
+
+
+            />
+
+        <!-- Endcall button -->
+
+        <ImageView
+            android:id="@+id/button_end_call"
+            android:layout_width="@dimen/button_size"
+            android:layout_height="@dimen/button_size"
+
+            android:contentDescription="@string/endcall"
+            android:src="@drawable/button_call_end"
+
+            />
+
+
+    </com.google.android.flexbox.FlexboxLayout>
+
+
+</LinearLayout>
