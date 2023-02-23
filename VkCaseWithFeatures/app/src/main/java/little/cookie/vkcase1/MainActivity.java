@@ -2,22 +2,31 @@ package little.cookie.vkcase1;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.core.app.ActivityCompat;
 import androidx.transition.TransitionManager;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.material.card.MaterialCardView;
+
+import java.io.IOException;
 import jp.wasabeef.blurry.Blurry;
+
+import static little.cookie.vkcase1.LogFunctions.log;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,8 +57,8 @@ public class MainActivity extends AppCompatActivity {
     int drw_miniMicroOff_id; //(basically didn't found way to get id of drawable back then)
 
     //Layouts
-    CardView user1;
-    CardView user2;
+    MaterialCardView user1;
+    MaterialCardView user2;
     ConstraintLayout usersPlace;
     ImageView userBG1;
     ImageView userBG2;
@@ -74,9 +83,68 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         //If i start that in OnCreate method - program crashes.
         blurImages();
+
+        threadManager();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
 
+
+        recorder.stop();
+        recorder.release();
+        recorder = null;
+    }
+    MediaRecorder recorder;
+    private void threadManager(){
+
+
+
+        Thread myThread = new Thread(
+                () -> {
+                    while (true) {
+                            if(isMicroOn) {
+                               manageSound();
+                            }
+
+                    }
+
+
+                }
+        );
+        myThread.setDaemon(true);
+        myThread.start();
+
+
+
+    }
+
+    private void manageSound(){
+
+
+        // Wait for 1 second to allow the microphone to pick up sound
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+// Get the maximum amplitude of the audio signal
+        int maxAmplitude = recorder.getMaxAmplitude();
+// Check if the maximum amplitude is above a threshold value
+        if (maxAmplitude > 1000) {
+            this.runOnUiThread(() -> {
+                user1.setStrokeWidth(10);
+            });
+
+        }else
+        {
+            this.runOnUiThread(() -> {
+                user1.setStrokeWidth(0);
+            });
+        }
+    }
 
     private void blurImages()
     {
@@ -106,7 +174,17 @@ public class MainActivity extends AppCompatActivity {
 
             isCameraOn=!isCameraOn;
             if(isCameraOn) {
-                btn_camera.setImageDrawable(drw_cameraOn);
+                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA},
+                            10);
+
+                isCameraOn=false;
+                }else {
+                    btn_camera.setImageDrawable(drw_cameraOn);
+                }
+
+
             }
             else {
                 btn_camera.setImageDrawable(drw_cameraOff);
@@ -118,15 +196,43 @@ public class MainActivity extends AppCompatActivity {
         btn_micro.setOnTouchListener((view, motionEvent) -> {
 
 
-            isMicroOn=!isMicroOn;
-            if(isMicroOn) {
-                btn_micro.setImageDrawable(drw_microOn);
-                txt_username.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,0,0);
+            if(!isMicroOn) {
+
+                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.RECORD_AUDIO },
+                            10);
+
+                    isMicroOn=false;
+                } else {
+                    btn_micro.setImageDrawable(drw_microOn);
+                    txt_username.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,0,0);
+                    recorder = new MediaRecorder();
+                    recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+                    recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+                    recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+                    recorder.setOutputFile("/dev/null"); // Set the output file to null to discard audio data
+
+                    try {
+                        recorder.prepare();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    recorder.start();
+                    isMicroOn=true;
+                }
+
 
             }
             else {
+                recorder.stop();
+                recorder.release();
+                recorder = null;
                 btn_micro.setImageDrawable(drw_microOff);
+                user1.setStrokeWidth(0);
                 txt_username.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,drw_miniMicroOff_id,0);
+                isMicroOn=false;
             }
 
             return false;

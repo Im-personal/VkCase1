@@ -20,4 +20,6 @@
     <color name="icon_on">#FFF</color>
     <color name="icon_off">#363738</color>
 
+    <color name="talkative">#6666ff</color>
+
 </resources>
