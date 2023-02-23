@@ -6,21 +6,20 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_gradient"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:padding="@dimen/main_margin"
     android:weightSum="100"
     tools:context=".MainActivity">
-
 
     <!-- Upper bar. -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/main_margin"
         android:layout_weight="4">
 
+        <!-- Message button. -->
         <ImageButton
             android:id="@+id/message_button"
-
 
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -34,6 +33,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!-- Users Button -->
         <ImageButton
             android:id="@+id/users_button"
             android:layout_width="0dp"
@@ -48,6 +48,7 @@
             app:layout_constraintStart_toStartOf="@+id/message_button"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!-- I have no idea what this button is -->
         <ImageButton
             android:id="@+id/idk_button"
             android:layout_width="0dp"
@@ -67,6 +68,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+    <!-- Layout with user's pfps -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/usersplace"
         android:layout_width="match_parent"
@@ -76,14 +78,12 @@
 
 
         <!-- First user. -->
-
-        <!-- Second User. -->
         <androidx.cardview.widget.CardView
             android:id="@+id/user1_place"
 
             android:layout_width="match_parent"
             android:layout_height="@dimen/user_height"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="@dimen/main_margin"
             android:layout_weight="40"
 
             android:background="@drawable/pfp_face1"
@@ -98,7 +98,7 @@
 
             >
 
-
+            <!-- User's background. -->
         <androidx.constraintlayout.widget.ConstraintLayout
 
             android:layout_width="match_parent"
@@ -110,9 +110,8 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
-
                 >
+
             <ImageView
                 android:id="@+id/blurView1"
                 android:layout_width="match_parent"
@@ -124,7 +123,7 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-
+            <!-- User's pfp -->
             <androidx.cardview.widget.CardView
                 android:layout_width="@dimen/user_size"
                 android:layout_height="@dimen/user_size"
@@ -208,7 +207,7 @@
 
 
             >
-
+            <!-- Second User. -->
             <androidx.constraintlayout.widget.ConstraintLayout
 
                 android:layout_width="match_parent"
@@ -217,7 +216,7 @@
 
                 >
 
-
+                <!-- User's background. -->
             <ImageView
                 android:id="@+id/blurView2"
                 android:layout_width="match_parent"
@@ -242,8 +241,8 @@
 
                 app:layout_constraintTop_toTopOf="parent"
                 >
-
-            <ImageView
+                <!-- User's pfp -->
+                <ImageView
                 android:id="@+id/pfp2"
                 android:layout_width="@dimen/user_size"
                 android:layout_height="@dimen/user_size"
@@ -285,11 +284,12 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <!-- Place for rounded line which also makes space between -->
     <androidx.constraintlayout.widget.ConstraintLayout
 
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/main_margin"
 
         android:layout_weight="5"
 
@@ -318,7 +318,7 @@
 
 
         >
-
+        <!-- Camera Button -->
         <ImageView
             android:id="@+id/button_camera"
 
@@ -327,6 +327,8 @@
 
             android:contentDescription="@string/cam_button"
             android:src="@drawable/button_camera_off" />
+
+        <!-- Microphone button -->
 
         <ImageView
             android:id="@+id/button_micro"
@@ -340,6 +342,7 @@
 
             />
 
+        <!-- Hello button. -->
         <ImageView
             android:id="@+id/button_hiordk"
             android:layout_width="@dimen/button_size"
@@ -350,6 +353,8 @@
 
 
             />
+
+        <!-- Endcall button -->
 
         <ImageView
             android:id="@+id/button_end_call"

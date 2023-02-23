@@ -10,21 +10,10 @@ import androidx.transition.TransitionManager;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
-import android.graphics.Rect;
-import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -32,6 +21,7 @@ import jp.wasabeef.blurry.Blurry;
 
 public class MainActivity extends AppCompatActivity {
 
+    //ImageViews
     ImageView btn_camera ;
     ImageView btn_micro;
     ImageView btn_hioridk;
@@ -40,26 +30,31 @@ public class MainActivity extends AppCompatActivity {
     ImageView btn_users;
     ImageView btn_iHaveNoIdea;
 
-    ImageView pfp_user1;
-    ImageView pfp_user2;
-
+    //TextViews
     TextView txt_username;
 
+    //Booleans
     boolean isCameraOn = false;
     boolean isMicroOn = false;
     boolean isChanged = false;
 
+    //Drawables
     Drawable drw_cameraOn;
     Drawable drw_cameraOff;
     Drawable drw_microOn;
     Drawable drw_microOff;
 
-    int drw_miniMicroOff_id;
+    //ints
+    int drw_miniMicroOff_id; //(basically didn't found way to get id of drawable back then)
 
+    //Layouts
     CardView user1;
     CardView user2;
     ConstraintLayout usersPlace;
+    ImageView userBG1;
+    ImageView userBG2;
 
+    //Timer
     long lastPress = 0;
 
 
@@ -77,18 +72,20 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        //If i start that in OnCreate method - program crashes.
         blurImages();
     }
 
+
+
     private void blurImages()
     {
-        ImageView us1 = findViewById(R.id.blurView1);
-        Bitmap bitmap = ((BitmapDrawable)us1.getDrawable()).getBitmap();
-        Blurry.with(this).radius(25).sampling(2).from(bitmap.copy(bitmap.getConfig(), true)).into(us1);
+        //Gets view's bitmap, blur it, then put it back.
+        Bitmap bitmap = ((BitmapDrawable)userBG1.getDrawable()).getBitmap();
+        Blurry.with(this).radius(25).sampling(2).from(bitmap).into(userBG1);
 
-        ImageView us2 = findViewById(R.id.blurView2);
-        bitmap = ((BitmapDrawable)us2.getDrawable()).getBitmap();
-        Blurry.with(this).radius(25).sampling(2).from(bitmap).into(us2);
+        bitmap = ((BitmapDrawable)userBG2.getDrawable()).getBitmap();
+        Blurry.with(this).radius(25).sampling(2).from(bitmap).into(userBG2);
     }
 
 
@@ -102,6 +99,8 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("ClickableViewAccessibility")
     private void setOnTouch()
     {
+
+        //makes camera change it's icon on tap
         btn_camera.setOnTouchListener((view, motionEvent) -> {
 
 
@@ -115,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
             return false;
         });
 
+        //makes micro change it's icon and icon of YOU-ser textView on tap
         btn_micro.setOnTouchListener((view, motionEvent) -> {
 
 
@@ -132,12 +132,14 @@ public class MainActivity extends AppCompatActivity {
             return false;
         });
 
+        //Makes program shut on tap
         btn_endCall.setOnTouchListener((view, motionEvent) ->
         {
            System.exit(0);
             return false;
         });
 
+        //Makes alertDialog on tap
         btn_hioridk.setOnTouchListener((view, motionEvent) ->
         {
             new AlertDialog.Builder(this)
@@ -147,6 +149,7 @@ public class MainActivity extends AppCompatActivity {
             return false;
         });
 
+        //Open contacts app on tap
         btn_users.setOnTouchListener((view, motionEvent) ->
         {
 
@@ -157,6 +160,7 @@ public class MainActivity extends AppCompatActivity {
             return false;
         });
 
+        //Open sms activity on tap
         btn_messages.setOnTouchListener((view, motionEvent) ->
         {
 
@@ -167,26 +171,29 @@ public class MainActivity extends AppCompatActivity {
             return false;
         });
 
+
+        //Swap users on tap if tap on that button were made later than 1000ms after the last one
         btn_iHaveNoIdea.setOnTouchListener((view, motionEvent) ->
         {
             if(System.currentTimeMillis()-lastPress>=1000) {
-
+                //Update timer
                 lastPress = System.currentTimeMillis();
-
 
                 isChanged = !isChanged;
 
 
                 if (isChanged) {
+                    //Get set of constraint
                     ConstraintSet constraintSet = new ConstraintSet();
                     constraintSet.clone(usersPlace);
 
+                    //Clear all needed constraints
                     constraintSet.clear(user1.getId(), ConstraintSet.TOP);
                     constraintSet.clear(user1.getId(), ConstraintSet.BOTTOM);
                     constraintSet.clear(user2.getId(), ConstraintSet.TOP);
                     constraintSet.clear(user2.getId(), ConstraintSet.BOTTOM);
 
-
+                    //Put constrains in opposite order
                     constraintSet.connect(user1.getId(), ConstraintSet.BOTTOM, usersPlace.getId(), ConstraintSet.BOTTOM);
                     constraintSet.connect(user2.getId(), ConstraintSet.TOP, usersPlace.getId(), ConstraintSet.TOP);
 
@@ -233,11 +240,10 @@ public class MainActivity extends AppCompatActivity {
         drw_microOn = getDrawable(R.drawable.button_micro_on);
         drw_microOff = getDrawable(R.drawable.button_micro_off);
 
-
-
         drw_miniMicroOff_id = R.drawable.micro_incall_off;
     }
 
+    //Loading for every stuff that will be changed later
     private void loadChangeable(){
         btn_camera = findViewById(R.id.button_camera);
         btn_micro = findViewById(R.id.button_micro);
@@ -251,30 +257,12 @@ public class MainActivity extends AppCompatActivity {
         user1 = findViewById(R.id.user1_place);
         user2 = findViewById(R.id.user2_place);
         usersPlace = findViewById(R.id.usersplace);
+        userBG1 = findViewById(R.id.blurView1);
+        userBG2 = findViewById(R.id.blurView2);
 
     }
 
-    private static Bitmap getRoundedCornerBitmap(Bitmap bitmap, int pixels) {
-        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap
-                .getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(output);
 
-        final int color = 0xff424242;
-        final Paint paint = new Paint();
-        final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
-        final RectF rectF = new RectF(rect);
-        final float roundPx = pixels;
-
-        paint.setAntiAlias(true);
-        canvas.drawARGB(0, 0, 0, 0);
-        paint.setColor(color);
-        canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
-
-        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-        canvas.drawBitmap(bitmap, rect, rect, paint);
-
-        return output;
-    }
 
 
 }
