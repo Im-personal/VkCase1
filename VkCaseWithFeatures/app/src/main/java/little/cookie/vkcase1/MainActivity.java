@@ -250,6 +250,7 @@ public class MainActivity extends AppCompatActivity {
                         isMicroOn = false;
 
                     } else {
+                        try {
                         btn_micro.setImageDrawable(drw_microOn);
                         txt_username.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, 0, 0);
                         recorder = new MediaRecorder();
@@ -258,27 +259,31 @@ public class MainActivity extends AppCompatActivity {
                         recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
                         recorder.setOutputFile("/dev/null"); // Set the output file to null to discard audio data
 
-                        try {
+
                             recorder.prepare();
-                        } catch (IOException e) {
+                            recorder.start();
+                            isMicroOn = true;
+                            snd_unmute.start();
+                        } catch (IOException | RuntimeException e) {
                             e.printStackTrace();
                         }
 
-                        recorder.start();
-                        isMicroOn = true;
-                        snd_unmute.start();
                     }
 
 
                 } else {
-                    recorder.stop();
-                    recorder.release();
-                    recorder = null;
-                    btn_micro.setImageDrawable(drw_microOff);
-                    user1.setStrokeWidth(0);
-                    txt_username.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, drw_miniMicroOff_id, 0);
-                    isMicroOn = false;
-                    snd_mute.start();
+                    try {
+                        recorder.stop();
+                        recorder.release();
+                        recorder = null;
+                        btn_micro.setImageDrawable(drw_microOff);
+                        user1.setStrokeWidth(0);
+                        txt_username.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, drw_miniMicroOff_id, 0);
+                        isMicroOn = false;
+                        snd_mute.start();
+                    }catch (RuntimeException e) {
+                        e.printStackTrace();
+                    }
                 }
             }catch (RuntimeException e)
             {
@@ -286,6 +291,8 @@ public class MainActivity extends AppCompatActivity {
                         .setTitle("Как делишки?")
                         .setMessage(e.getMessage())
                         .show();
+
+                e.printStackTrace();
             }
             return false;
         });
