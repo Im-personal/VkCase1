@@ -77,6 +77,8 @@
         android:layout_weight="80">
 
 
+
+
         <!-- First user. -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/user1_place"
@@ -87,9 +89,9 @@
             android:layout_weight="40"
 
             app:strokeColor="@color/talkative"
-            app:strokeWidth="10dp"
+            app:strokeWidth="0dp"
 
-            android:background="@drawable/pfp_face1"
+
 
             android:orientation="horizontal"
             app:layout_constraintBottom_toTopOf="@+id/user2_place"
@@ -101,6 +103,18 @@
 
             >
 
+            <!-- there had to be Video - i tried alot of stuff but nothing worked
+            <TextureView
+
+                android:id="@+id/video"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="invisible"
+                android:contentDescription="@string/bg_pfp" />-->
+
+
+
+
             <!-- User's background. -->
         <androidx.constraintlayout.widget.ConstraintLayout
 
@@ -111,11 +125,16 @@
 
             >
 
+
+
+
             <androidx.constraintlayout.widget.ConstraintLayout
 
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 >
+
+
 
             <ImageView
                 android:id="@+id/blurView1"
@@ -130,6 +149,7 @@
 
             <!-- User's pfp -->
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/pfp1"
                 android:layout_width="@dimen/user_size"
                 android:layout_height="@dimen/user_size"
                 app:cardCornerRadius="@dimen/half_user_size"
@@ -144,7 +164,7 @@
                 >
 
                <ImageView
-                    android:id="@+id/pfp1"
+
                     android:layout_width="@dimen/user_size"
                     android:layout_height="@dimen/user_size"
                     android:background="@drawable/pfp_round"
@@ -236,6 +256,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/pfp2"
                 android:layout_width="@dimen/user_size"
                 android:layout_height="@dimen/user_size"
                 app:cardCornerRadius="@dimen/half_user_size"
@@ -250,7 +271,7 @@
                 >
                 <!-- User's pfp -->
                 <ImageView
-                android:id="@+id/pfp2"
+
                 android:layout_width="@dimen/user_size"
                 android:layout_height="@dimen/user_size"
                 android:background="@drawable/pfp_round"

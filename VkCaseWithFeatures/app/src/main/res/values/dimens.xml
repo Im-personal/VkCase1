@@ -6,7 +6,7 @@
     <dimen name="user_size">80dp</dimen>
     <dimen name="half_user_size">40dp</dimen>
 
-    <dimen name="main_margin">16dp</dimen>
+    <dimen name="main_margin">8dp</dimen>
 
 
     <dimen name="mini_button">24dp</dimen>

@@ -1,5 +1,6 @@
 package little.cookie.vkcase1;
 
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -12,18 +13,22 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.Color;
+
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.card.MaterialCardView;
 
 import java.io.IOException;
+
 import jp.wasabeef.blurry.Blurry;
 
 import static little.cookie.vkcase1.LogFunctions.log;
@@ -59,12 +64,22 @@ public class MainActivity extends AppCompatActivity {
     //Layouts
     MaterialCardView user1;
     MaterialCardView user2;
+    MaterialCardView pfp_user1;
+    MaterialCardView pfp_user2;
     ConstraintLayout usersPlace;
     ImageView userBG1;
     ImageView userBG2;
 
+
     //Timer
     long lastPress = 0;
+
+    //Sounds
+    MediaPlayer snd_hello;
+    MediaPlayer snd_mute;
+    MediaPlayer snd_unmute;
+    MediaPlayer snd_came;
+    MediaPlayer snd_leave;
 
 
     @Override
@@ -74,8 +89,6 @@ public class MainActivity extends AppCompatActivity {
 
         loadData();
         setOnTouch();
-
-
     }
 
     @Override
@@ -85,6 +98,9 @@ public class MainActivity extends AppCompatActivity {
         blurImages();
 
         threadManager();
+
+
+        snd_came.start();
     }
 
     @Override
@@ -95,6 +111,12 @@ public class MainActivity extends AppCompatActivity {
         recorder.stop();
         recorder.release();
         recorder = null;
+
+        snd_came.release();
+        snd_leave.release();
+        snd_hello.release();
+        snd_mute.release();
+        snd_unmute.release();
     }
     MediaRecorder recorder;
     private void threadManager(){
@@ -105,7 +127,12 @@ public class MainActivity extends AppCompatActivity {
                 () -> {
                     while (true) {
                             if(isMicroOn) {
-                               manageSound();
+                                try {
+                                    manageSound();
+                                }catch(RuntimeException e)
+                                {
+                                    e.printStackTrace();
+                                }
                             }
 
                     }
@@ -144,15 +171,20 @@ public class MainActivity extends AppCompatActivity {
                 user1.setStrokeWidth(0);
             });
         }
+
+
+
     }
 
+
+    Bitmap userbg;
     private void blurImages()
     {
         //Gets view's bitmap, blur it, then put it back.
-        Bitmap bitmap = ((BitmapDrawable)userBG1.getDrawable()).getBitmap();
-        Blurry.with(this).radius(25).sampling(2).from(bitmap).into(userBG1);
+        userbg = ((BitmapDrawable)userBG1.getDrawable()).getBitmap();
+        Blurry.with(this).radius(25).sampling(2).from(userbg).into(userBG1);
 
-        bitmap = ((BitmapDrawable)userBG2.getDrawable()).getBitmap();
+        Bitmap bitmap = ((BitmapDrawable)userBG2.getDrawable()).getBitmap();
         Blurry.with(this).radius(25).sampling(2).from(bitmap).into(userBG2);
     }
 
@@ -161,8 +193,9 @@ public class MainActivity extends AppCompatActivity {
     {
         loadChangeable();
         loadDrawables();
-
+        loadSounds();
     }
+
 
     @SuppressLint("ClickableViewAccessibility")
     private void setOnTouch()
@@ -175,72 +208,93 @@ public class MainActivity extends AppCompatActivity {
             isCameraOn=!isCameraOn;
             if(isCameraOn) {
                 if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                        != PackageManager.PERMISSION_GRANTED) {
+                        == PackageManager.PERMISSION_DENIED) {
                     ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA},
-                            10);
+                            11);
 
                 isCameraOn=false;
                 }else {
+                    pfp_user1.setVisibility(View.INVISIBLE);
                     btn_camera.setImageDrawable(drw_cameraOn);
+                    Glide.with(this).asGif().load(R.drawable.video).into(userBG1);
+                    snd_unmute.start();
+
                 }
 
 
             }
             else {
+                pfp_user1.setVisibility(View.VISIBLE);
                 btn_camera.setImageDrawable(drw_cameraOff);
+                userBG1.setImageDrawable(new BitmapDrawable(getResources(), userbg));
+                snd_mute.start();
+
             }
             return false;
         });
 
         //makes micro change it's icon and icon of YOU-ser textView on tap
+
+
+
         btn_micro.setOnTouchListener((view, motionEvent) -> {
+            try {
 
+                if (!isMicroOn) {
 
-            if(!isMicroOn) {
+                    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)
+                            != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO},
+                                10);
 
-                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)
-                        != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.RECORD_AUDIO },
-                            10);
+                        isMicroOn = false;
 
-                    isMicroOn=false;
-                } else {
-                    btn_micro.setImageDrawable(drw_microOn);
-                    txt_username.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,0,0);
-                    recorder = new MediaRecorder();
-                    recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-                    recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-                    recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-                    recorder.setOutputFile("/dev/null"); // Set the output file to null to discard audio data
+                    } else {
+                        btn_micro.setImageDrawable(drw_microOn);
+                        txt_username.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, 0, 0);
+                        recorder = new MediaRecorder();
+                        recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+                        recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+                        recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+                        recorder.setOutputFile("/dev/null"); // Set the output file to null to discard audio data
 
-                    try {
-                        recorder.prepare();
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                        try {
+                            recorder.prepare();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                        recorder.start();
+                        isMicroOn = true;
+                        snd_unmute.start();
                     }
 
-                    recorder.start();
-                    isMicroOn=true;
+
+                } else {
+                    recorder.stop();
+                    recorder.release();
+                    recorder = null;
+                    btn_micro.setImageDrawable(drw_microOff);
+                    user1.setStrokeWidth(0);
+                    txt_username.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, drw_miniMicroOff_id, 0);
+                    isMicroOn = false;
+                    snd_mute.start();
                 }
-
-
+            }catch (RuntimeException e)
+            {
+                new AlertDialog.Builder(this)
+                        .setTitle("Как делишки?")
+                        .setMessage(e.getMessage())
+                        .show();
             }
-            else {
-                recorder.stop();
-                recorder.release();
-                recorder = null;
-                btn_micro.setImageDrawable(drw_microOff);
-                user1.setStrokeWidth(0);
-                txt_username.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,drw_miniMicroOff_id,0);
-                isMicroOn=false;
-            }
-
             return false;
         });
 
         //Makes program shut on tap
         btn_endCall.setOnTouchListener((view, motionEvent) ->
         {
+            snd_leave.start();
+            try{Thread.sleep(snd_leave.getDuration());} catch (InterruptedException e) {e.printStackTrace();} ;
            System.exit(0);
             return false;
         });
@@ -248,6 +302,7 @@ public class MainActivity extends AppCompatActivity {
         //Makes alertDialog on tap
         btn_hioridk.setOnTouchListener((view, motionEvent) ->
         {
+            snd_hello.start();
             new AlertDialog.Builder(this)
                     .setTitle("Как делишки?")
                     .setMessage("привет")
@@ -349,6 +404,15 @@ public class MainActivity extends AppCompatActivity {
         drw_miniMicroOff_id = R.drawable.micro_incall_off;
     }
 
+    private void loadSounds()
+    {
+        snd_hello = MediaPlayer.create(this,R.raw.hi);
+        snd_mute = MediaPlayer.create(this,R.raw.mute);
+        snd_unmute = MediaPlayer.create(this,R.raw.unmute);
+        snd_leave = MediaPlayer.create(this,R.raw.leave);
+        snd_came = MediaPlayer.create(this,R.raw.came);
+    }
+
     //Loading for every stuff that will be changed later
     private void loadChangeable(){
         btn_camera = findViewById(R.id.button_camera);
@@ -362,6 +426,8 @@ public class MainActivity extends AppCompatActivity {
 
         user1 = findViewById(R.id.user1_place);
         user2 = findViewById(R.id.user2_place);
+        pfp_user1 = findViewById(R.id.pfp1);
+        pfp_user2 = findViewById(R.id.pfp2);
         usersPlace = findViewById(R.id.usersplace);
         userBG1 = findViewById(R.id.blurView1);
         userBG2 = findViewById(R.id.blurView2);
